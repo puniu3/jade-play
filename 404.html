@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <!-- WL46 — security/privacy hardening via meta-CSP (GitHub Pages can't send HTTP headers). script-src
+       'self' is the real XSS win (no inline scripts — the only script is the module bundle); style-src
+       needs 'unsafe-inline' for the app's inline styles + the locale-injected <style>; connect-src is kept
+       generous (https:/wss:) so WebRTC + the PeerJS broker/TURN can't be broken. no-referrer keeps the
+       ?room= token out of the Referer sent to the broker / asset hosts. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https: wss:; worker-src 'self' blob:; object-src 'none'; base-uri 'self'" />
+  <meta name="referrer" content="no-referrer" />
+  <!-- B9 (WCAG 1.4.4): pinch-zoom must stay enabled, so NO maximum-scale / user-scalable lock here.
+       Double-tap-to-zoom on game elements is still suppressed — not by the viewport, but by the JS
+       guard in main.tsx (a touchend double-tap detector + touch-action:manipulation on controls),
+       which leaves accessibility pinch-zoom untouched while killing the incidental double-tap. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Jade Merchants</title>
+  <meta name="theme-color" content="#cfc2a6" />
+
+  <!-- Favicon / app icon: the universal jade crest (the language-neutral title-screen brand mark —
+       a gold-bezelled green faceted jade diamond on a parchment disc; NO text, NO CJK). Authored as a
+       vector (public/icon.svg) with a rasterized png fallback (public/icon-180.png), both shipped via
+       Vite's publicDir (copied verbatim, no hash). Hrefs are root-absolute so Vite base-prefixes them
+       for the prod subpath (e.g. /jade-play/) → they 200 at <base>/icon.svg and <base>/icon-180.png. -->
+  <link rel="icon" type="image/svg+xml" href="/jade-play/icon.svg" />
+  <link rel="icon" type="image/png" sizes="180x180" href="/jade-play/icon-180.png" />
+
+  <!-- PWA install / home-screen standalone (B1). The Web App Manifest (public/manifest.webmanifest,
+       shipped via publicDir) carries name/icons/colors + display:standalone; this root-absolute href is
+       base-prefixed by Vite, so it 200s at <base>/manifest.webmanifest. The manifest's own member URLs
+       (start_url/scope/icons) are RELATIVE — resolved against the base-correct manifest URL — because
+       publicDir files are copied verbatim and are NOT base-rewritten. iOS Safari ignores the manifest's
+       icons/standalone, so the apple-* meta + apple-touch-icon below cover the iPad-first home-screen
+       install (status-bar "default" = opaque light bar; WL59 sets safe-area inset padding in app.css,
+       but the opaque bar needs none). The home-screen icons (manifest icon-192/512 + apple-touch-icon.png)
+       are TILE-FILLING — a full-bleed opaque parchment square with the jade gem in the maskable safe
+       zone (scripts/gen_pwa_icons.mjs) — so the OS square/circle tile has no floating-circle padding;
+       the circular crest (icon.svg + icon-180.png above) stays the browser-tab favicon, untouched.
+       Offline service worker (B4) is deferred — cache-busting risk. -->
+  <link rel="manifest" href="/jade-play/manifest.webmanifest" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="apple-touch-icon" href="/jade-play/apple-touch-icon.png" />
+
+  <!-- Open Graph / Twitter link-preview card. Room URLs get pasted into Discord, so the unfurl is the
+       "looks legit when shared" win. These URLs are ABSOLUTE PRODUCTION urls (the live site), NOT the
+       deploy `base` — an unfurler fetches them from the public web, not from the visitor's page. -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Jade Merchants" />
+  <meta property="og:title" content="Jade Merchants" />
+  <meta property="og:url" content="https://puniu3.github.io/jade-play/" />
+  <meta property="og:image" content="https://puniu3.github.io/jade-play/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Jade Merchants" />
+  <meta name="twitter:image" content="https://puniu3.github.io/jade-play/og-image.png" />
+
+  <!-- Fonts are self-hosted + subset via @font-face in app.css (see scripts/subset_fonts.py); no
+       CDN dependency, so rendering is identical across environments and works offline. -->
+  <script type="module" crossorigin src="/jade-play/assets/index-BwfgWfGE.js"></script>
+  <link rel="stylesheet" crossorigin href="/jade-play/assets/index-CboX4gMD.css">
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>

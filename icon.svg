@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 92 92" width="92" height="92" role="img" aria-label="Jade Merchants">
+  <!-- Universal jade crest — the language-neutral brand mark from the title screen (.jm-crest in
+       web/app/app.css): a faceted green jade diamond in a thin polished-gold bezel, struck into a
+       recessed parchment disc inside a gold ring. NO text, NO CJK — gem + bezel + disc + ring only. -->
+  <defs>
+    <linearGradient id="ring" x1="0.08" y1="0" x2="0.92" y2="1">
+      <stop offset="0" stop-color="#eccd7a"/>
+      <stop offset="0.5" stop-color="#c79a3a"/>
+      <stop offset="1" stop-color="#9a6c1d"/>
+    </linearGradient>
+    <radialGradient id="disc" cx="0.5" cy="0.38" r="0.62">
+      <stop offset="0" stop-color="#f7efda"/>
+      <stop offset="0.66" stop-color="#ecdfc1"/>
+      <stop offset="1" stop-color="#e1d0a6"/>
+    </radialGradient>
+    <linearGradient id="bezel" x1="0.08" y1="0" x2="0.92" y2="1">
+      <stop offset="0" stop-color="#e6c069"/>
+      <stop offset="0.56" stop-color="#bd8b2c"/>
+      <stop offset="1" stop-color="#8f6118"/>
+    </linearGradient>
+    <radialGradient id="glint" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="0.66" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- polished gold ring -->
+  <circle cx="46" cy="46" r="46" fill="url(#ring)"/>
+  <!-- faint top-edge highlight on the ring (the inset white catch-light) -->
+  <circle cx="46" cy="46" r="45.3" fill="none" stroke="#ffffff" stroke-opacity="0.45" stroke-width="0.8"/>
+  <!-- recessed parchment disc the gem is struck into -->
+  <circle cx="46" cy="46" r="40" fill="url(#disc)"/>
+  <circle cx="46" cy="46" r="40" fill="none" stroke="#7a5618" stroke-opacity="0.18" stroke-width="1.2"/>
+
+  <!-- soft cast shadow under the gem (offset bezel diamond) -->
+  <polygon points="46,23 71,48 46,73 21,48" fill="#0d3a21" fill-opacity="0.26"/>
+  <!-- gem: thin gold bezel diamond -->
+  <polygon points="46,21 71,46 46,71 21,46" fill="url(#bezel)"/>
+
+  <!-- jade faceted diamond (inset ~3px): four facets meeting at centre, bright top / dark bottom.
+       vertices top(46,24) right(68,46) bottom(46,68) left(24,46), centre(46,46) -->
+  <polygon points="46,46 46,24 24,46" fill="#38bd75"/>
+  <polygon points="46,46 46,24 68,46" fill="#2faf6c"/>
+  <polygon points="46,46 68,46 46,68" fill="#157a44"/>
+  <polygon points="46,46 24,46 46,68" fill="#0c5530"/>
+  <!-- subtle facet seams -->
+  <g stroke="#0b4a2a" stroke-opacity="0.22" stroke-width="0.5">
+    <line x1="46" y1="46" x2="46" y2="24"/>
+    <line x1="46" y1="46" x2="68" y2="46"/>
+    <line x1="46" y1="46" x2="46" y2="68"/>
+    <line x1="46" y1="46" x2="24" y2="46"/>
+  </g>
+  <!-- calm catch-light on the top-left facet -->
+  <circle cx="38" cy="33" r="5" fill="url(#glint)"/>
+</svg>
